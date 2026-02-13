@@ -1,4 +1,3 @@
-title: false
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -6,9 +5,15 @@ title: false
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-  body {
+  /* Reset defaults to avoid GitHub Pages adding margins */
+  html, body {
     margin: 0;
-    height: 100vh;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+  body {
     font-family: 'Poppins', 'Comic Sans MS', sans-serif;
     display: flex;
     justify-content: center;
@@ -69,9 +74,12 @@ title: false
     z-index: 1;
   }
 
+  /* Yes screen */
   .yes-screen {
     position: fixed;
     inset: 0;
+    height: 100vh; /* full viewport height */
+    width: 100%;
     background: linear-gradient(135deg, #ffafcc, #ffc8dd);
     display: flex;
     flex-direction: column;
@@ -90,6 +98,7 @@ title: false
   .yes-screen p {
     color: white;
     font-size: 1.4em;
+    margin: 5px 0;
   }
 
   @keyframes fadeIn {
@@ -104,6 +113,7 @@ title: false
 <div class="card" id="mainCard">
   <h1>Will you be my Valentine, Gem? 💛</h1>
 
+  <!-- Minion GIF -->
   <img src="https://media1.tenor.com/m/kutFNFXxSIsAAAAd/minion-minion-loves.gif"
        alt="Minion pulling out heart">
 
@@ -120,18 +130,20 @@ title: false
   let scale = 1;
   let moving = false;
 
-  // Standard Yes/No position initially
+  // Initial standard position for No button
   noBtn.style.transform = 'translate(0px, 0px)';
 
   noBtn.addEventListener("click", () => {
     if (!moving) {
       moving = true;
-      // Change to absolute so it can move inside card
+
+      // Change to absolute positioning for free movement inside card
       noBtn.style.position = "absolute";
       const rect = noBtn.getBoundingClientRect();
       const cardRect = card.getBoundingClientRect();
       noBtn.style.left = rect.left - cardRect.left + "px";
       noBtn.style.top = rect.top - cardRect.top + "px";
+
       moveNoButton();
     } else {
       scale *= 0.85;
@@ -142,7 +154,7 @@ title: false
   });
 
   function moveNoButton() {
-    const padding = 5; // stay inside the card
+    const padding = 5; // keep inside the card
     const maxX = card.offsetWidth - noBtn.offsetWidth - padding;
     const maxY = card.offsetHeight - noBtn.offsetHeight - padding;
 
